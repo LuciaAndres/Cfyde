@@ -9,7 +9,9 @@ import Collection from './Screens/Collection';
 import Inventory from './Screens/InventoryScreen';
 import MapScreen from './Screens/MapScreen';
 import EncounterScreen from './Screens/EncounterScreen'; 
+
 import { InventoryProvider } from './Context/InventoryContext';
+import { CapturedBeastsProvider } from './Context/CapturedBeastsContext';
 
 import type { RootStackParamList } from './types';
 
@@ -82,12 +84,14 @@ function MainTabs() {
 export default function App() {
   return (
     <InventoryProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="MainTabs" component={MainTabs} />
-          <Stack.Screen name="Encounter" component={EncounterScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <CapturedBeastsProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="MainTabs" component={MainTabs} />
+            <Stack.Screen name="Encounter" component={EncounterScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </CapturedBeastsProvider>
     </InventoryProvider>
   );
 }

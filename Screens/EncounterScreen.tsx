@@ -6,7 +6,9 @@ import { useEffect } from 'react';
 import type { RootStackScreenProps } from './types';
 import { items, Item } from '../Data/items';
 import { Host, BottomSheet, RNHostView } from '@expo/ui';
+
 import { useInventory } from '../Context/InventoryContext';
+import { useCapturedBeasts } from '../Context/CapturedBeastsContext';
 
 type Beast = {
   id: string;
@@ -31,6 +33,7 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
   const [extraAttempt, setExtraAttempt] = useState(false);
 
   const { currentItems, consumeItem } = useInventory();
+  const { addCapturedBeast } = useCapturedBeasts();
   const [itemUsed, setItemUsed] = useState(false);
 
   const selectItem = (item: Item) => {
@@ -39,30 +42,27 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
   const capture = () => {
     if (!selectedBeast) return;
 
-    // Probabilidad base de la criatura
     const baseProbability = selectedBeast.probability;
 
-    // Aplicar bonificación y multiplicador
     const finalProbability = Math.min(
         100,
         (baseProbability + activeBonus) * activeMultiplier
     );
 
-    // Primer intento
     let success = Math.random() * 100 < finalProbability;
 
-    // Segundo intento si se ha utilizado Special fruit
     if (!success && extraAttempt) {
         success = Math.random() * 100 < finalProbability;
     }
 
     if (success) {
-        Alert.alert('Capture successful!',`You captured ${selectedBeast.name}!`,[
-          {
-            text: 'OK',
-            onPress: () => navigation.goBack()
-          }
-        ]);
+      addCapturedBeast(selectedBeast.id);
+      Alert.alert('Capture successful!',`You captured ${selectedBeast.name}!`,[
+        {
+          text: 'OK',
+          onPress: () => navigation.goBack()
+        }
+      ]);
     } else {
         Alert.alert('Capture failed!',`You captured ${selectedBeast.name}!`,[
           {
@@ -111,10 +111,8 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
       if (!item || item.quantity <= 0) return;
       if (itemUsed) return;
 
-      // Consumir una unidad del objeto
       consumeItem(item.id);
-
-      // Aplicar el efecto correspondiente
+     
       if (item.effectType === 'bonus') {
           setActiveBonus(item.effect);
       }
@@ -177,22 +175,14 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
       >
         <RNHostView matchContents>
           <View style={styles.sheetContainer}>
-
-            <Text style={styles.sheetTitle}>
-              Choose an item
-            </Text>
-
-            <Text style={styles.sheetSubtitle}>
-              Select an item to use during the capture.
-            </Text>
-
+            <Text style={styles.sheetTitle}> Choose an item </Text>
+            <Text style={styles.sheetSubtitle}> Select an item to use during the capture.</Text>
             <FlatList
               data={currentItems.filter(item => item.quantity > 0)}
               numColumns={3}
               keyExtractor={(item) => item.id}
               columnWrapperStyle={styles.itemsRow}
               renderItem={({ item }) => (
-
                 <Pressable style={[ styles.itemCard,selectedItem?.id === item.id && styles.selectedItem]} onPress={() => selectItem(item)}>
                   {item.image ? (
                     <Image source={item.image} style={styles.itemImage} resizeMode="contain"/>
@@ -201,14 +191,8 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
                       <Text>?</Text>
                     </View>
                   )}
-
-                  <Text style={styles.itemName}>
-                    {item.name}
-                  </Text>
-
-                  <Text style={styles.itemQuantity}>
-                    x{item.quantity}
-                  </Text>
+                  <Text style={styles.itemName}>{item.name}</Text>
+                  <Text style={styles.itemQuantity}> x{item.quantity} </Text>
                 </Pressable>
               )}
             />
@@ -231,9 +215,7 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
   );
 }
 
-const styles = StyleSheet.create({
-
-  
+const styles = StyleSheet.create({  
 container: {
   flex: 1,
   backgroundColor: '#FFF9EF',
