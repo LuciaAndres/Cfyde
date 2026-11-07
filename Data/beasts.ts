@@ -1,0 +1,74 @@
+export const beasts = [
+    {
+        id:'1',
+        name:'',
+        Image:require('../assets/imagenes/DragonDeMar.png'),
+        probability:60,
+        type:"Sea",
+        description:"",
+        rareza:"Normal"
+    },
+    {
+        id:'2',
+        name:'',
+        Image:require('../assets/imagenes/Lince.png'),
+        probability:60,
+        type:"Forest",
+        description:"",
+        rareza:"Normal"
+    },
+    {
+        id:'3',
+        name:'',
+        Image:require('../assets/imagenes/Reno.png'),
+        probability:60,
+        type:"Snow",
+        description:"",
+        rareza:"Normal"
+    },
+    {
+        id:'4',
+        name:'',
+        Image:require('../assets/imagenes/RenoEspecial.png'),
+        probability:30,
+        type:"",
+        description:"Snow",
+        rareza:"Rare"
+    },
+    {
+        id:'5',
+        name:'Daisyless Picklefrog',
+        Image:require('../assets/imagenes/Rana.png'),
+        probability:60,
+        type:"Pond",
+        description:"",
+        rareza:"Normal"
+    },
+    {
+        id:'6',
+        name:'Piclefrog\'s distant cousin',
+        Image:require('../assets/imagenes/RanaRosa.png'),
+        probability:10,
+        type:"Pond",
+        description:"",
+        rareza:"Extra Rare"
+    },
+    {
+        id:'7',
+        name:'Daisy Picklefrog',
+        Image:require('../assets/imagenes/RanaBlanca.png'),
+        probability:30,
+        type:"Pond",
+        description:"",
+        rareza:"Rare"
+    },
+    {
+        id:'8',
+        name:'',
+        Image:require('../assets/imagenes/Zorro.png'),
+        probability:60,
+        type:"Forest",
+        description:"",
+        rareza:"Normal"
+    }
+];
