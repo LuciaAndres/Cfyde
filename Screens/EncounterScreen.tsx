@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, FlatList, Image, Button, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, Button, Pressable, Alert, ImageBackground } from 'react-native';
 import { ImageSourcePropType } from 'react-native';
-import { beasts } from '../Data/beasts';
+import { beasts, Beast } from '../Data/beasts';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import type { RootStackScreenProps } from './types';
@@ -10,16 +10,7 @@ import { Host, BottomSheet, RNHostView } from '@expo/ui';
 import { useInventory } from '../Context/InventoryContext';
 import { useCapturedBeasts } from '../Context/CapturedBeastsContext';
 
-type Beast = {
-  id: string;
-  name: string;
-  Image:ImageSourcePropType;
-  probability: number;
-  type:string;
-  description:string;
-  rareza:string;
 
-}
 export default function EncounterScreen({ navigation }: RootStackScreenProps<'Encounter'>){
  
   //Selector de Items
@@ -133,18 +124,18 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+        source={selectedBeast?.Background}
+        style={styles.background}
+        imageStyle={styles.backgroundImage}
+        resizeMode="cover"
+    >
        <View style={styles.creatureContainer}>
         {selectedBeast && (
           <>
             <Text style={styles.name}>
               {selectedBeast.name}
             </Text>
-            <Image
-              source={selectedBeast.Image}
-              style={styles.image}
-              resizeMode="contain"
-            />
             <Text style={styles.rarity}>
               {selectedBeast.rareza}
             </Text>
@@ -152,6 +143,7 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
             <Text style={styles.description}>
               {selectedBeast.probability}
             </Text>
+            
             {activeBonus > 0 && (
                 <Text>Moss Sphere: +{activeBonus}% capture chance</Text>
             )}
@@ -163,7 +155,13 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
             {extraAttempt && (
                 <Text>Special fruit: Extra attempt available</Text>
             )}
+            <Image
+              source={selectedBeast.Image}
+              style={styles.image}
+              resizeMode="contain"
+            />
           </>
+          
 
         )}
 
@@ -211,22 +209,32 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
         <Button title='Flee' onPress={(() => navigation.goBack())} />  
       </View>
     
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({  
-container: {
+background: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+},
+
+backgroundImage: {
+    width: '100%',
+    height: '100%',
+},
+
+ container: {
   flex: 1,
-  backgroundColor: '#FFF9EF',
   padding: 20,
 },
 
 creatureContainer: {
   flex: 1,
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
-  backgroundColor: '#F8F2E6',
+  //backgroundColor: '#F8F2E6',
   borderRadius: 26,
   borderWidth: 1,
   borderColor: '#E9DCC5',

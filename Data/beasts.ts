@@ -4,6 +4,7 @@ export type Beast = {
     name: string;
     Image: ImageSourcePropType;
     Silhouette: ImageSourcePropType;
+    Background: ImageSourcePropType;
     probability: number;
     type: string;
     description: string;
@@ -17,9 +18,10 @@ export type CapturedBeast = {
 export const beasts: Beast[] = [
     {
         id:'1',
-        name:'',
+        name:'Sea Dragon',
         Image:require('../assets/imagenes/DragonDeMar.png'),
         Silhouette:require('../assets/imagenes/DragonDeMarSombra.png') ,
+        Background: require('../assets/imagenes/FondoMar.png'),
         probability:60,
         type:"Sea",
         description:"",
@@ -27,9 +29,10 @@ export const beasts: Beast[] = [
     },
     {
         id:'2',
-        name:'',
-        Image:require('../assets/imagenes/Lince.png'),
-        Silhouette:require('../assets/imagenes/LinceSombra.png'),
+        name:'Pointi point',
+        Image:require('../assets/imagenes/Erizo.png'),
+        Silhouette:require('../assets/imagenes/ErizoSombra.png'),
+        Background: require('../assets/imagenes/FondoBosque.png'),
         probability:60,
         type:"Forest",
         description:"",
@@ -37,9 +40,10 @@ export const beasts: Beast[] = [
     },
     {
         id:'3',
-        name:'',
+        name:'Normal Reindeer',
         Image:require('../assets/imagenes/Reno.png'),
         Silhouette:require('../assets/imagenes/RenoSombra.png'),
+        Background: require('../assets/imagenes/fondoNieve.png'),
         probability:60,
         type:"Snow",
         description:"",
@@ -47,9 +51,10 @@ export const beasts: Beast[] = [
     },
     {
         id:'4',
-        name:'',
+        name:'Pretty Reindeer',
         Image:require('../assets/imagenes/RenoEspecial.png'),
         Silhouette:require('../assets/imagenes/RenoEspecialSombra.png'),
+        Background: require('../assets/imagenes/fondoNieve.png'),
         probability:30,
         type:"",
         description:"Snow",
@@ -60,6 +65,7 @@ export const beasts: Beast[] = [
         name:'Daisyless Picklefrog',
         Image:require('../assets/imagenes/Rana.png'),
         Silhouette:require('../assets/imagenes/RanaSombra.png'),
+        Background: require('../assets/imagenes/FondoEstanque.png'),
         probability:60,
         type:"Pond",
         description:"",
@@ -70,6 +76,7 @@ export const beasts: Beast[] = [
         name:'Piclefrog\'s distant cousin',
         Image:require('../assets/imagenes/RanaRosa.png'),
         Silhouette:require('../assets/imagenes/RanaRosaSombra.png'),
+        Background: require('../assets/imagenes/FondoEstanque.png'),
         probability:10,
         type:"Pond",
         description:"",
@@ -80,6 +87,7 @@ export const beasts: Beast[] = [
         name:'Daisy Picklefrog',
         Image:require('../assets/imagenes/RanaBlanca.png'),
         Silhouette:require('../assets/imagenes/RanaBlancaSombra.png'),
+        Background: require('../assets/imagenes/FondoEstanque.png'),
         probability:30,
         type:"Pond",
         description:"",
@@ -87,12 +95,35 @@ export const beasts: Beast[] = [
     },
     {
         id:'8',
-        name:'',
+        name:'El Zorro',
         Image:require('../assets/imagenes/Zorro.png'),
         Silhouette:require('../assets/imagenes/ZorroSombra.png'),
+        Background: require('../assets/imagenes/FondoBosque.png'),
         probability:60,
         type:"Forest",
         description:"",
         rareza:"Normal"
-    }
+    },
+    {
+        id:'9',
+        name:'Turquoise Turtle',
+        Image:require('../assets/imagenes/Tortuga.png'),
+        Silhouette:require('../assets/imagenes/TortugaSombra.png') ,
+        Background: require('../assets/imagenes/FondoMar.png'),
+        probability:60,
+        type:"Sea",
+        description:"",
+        rareza:"Normal"
+    },
+    {
+        id:'10',
+        name:'Ajolote',
+        Image:require('../assets/imagenes/Ajolote.png'),
+        Silhouette:require('../assets/imagenes/AjoloteSombra.png'),
+        Background: require('../assets/imagenes/FondoEstanque.png'),
+        probability:30,
+        type:"Pond",
+        description:"",
+        rareza:"Rare"
+    },
 ];
