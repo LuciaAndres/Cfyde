@@ -9,6 +9,7 @@ import { Host, BottomSheet, RNHostView } from '@expo/ui';
 
 import { useInventory } from '../Context/InventoryContext';
 import { useCapturedBeasts } from '../Context/CapturedBeastsContext';
+import { usePlayer } from '../Context/PlayerContext';
 
 
 export default function EncounterScreen({ navigation }: RootStackScreenProps<'Encounter'>){
@@ -26,6 +27,8 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
   const { currentItems, consumeItem } = useInventory();
   const { addCapturedBeast } = useCapturedBeasts();
   const [itemUsed, setItemUsed] = useState(false);
+
+  const{addXp}= usePlayer();  
 
   const selectItem = (item: Item) => {
     setSelectedItem(item);
@@ -48,6 +51,7 @@ export default function EncounterScreen({ navigation }: RootStackScreenProps<'En
 
     if (success) {
       addCapturedBeast(selectedBeast.id);
+      addXp(20);
       Alert.alert('Capture successful!',`You captured ${selectedBeast.name}!`,[
         {
           text: 'OK',
